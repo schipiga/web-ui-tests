@@ -19,7 +19,7 @@ New account steps
 
 import uuid
 
-from hamcrest import assert_that, same_instance
+from hamcrest import same_instance
 
 from ui_tests import config
 from ui_tests.third_party.matchers import check_that, returns

@@ -28,7 +28,7 @@ class AttachmentType(enum.Enum):
 @pytest.fixture(scope='session')
 def virtual_display(request):
     """Run test in virtual X server if env var is defined."""
-    if request.config.option.disable_virtual_display:
+    if not request.config.option.enable_virtual_display:
         return
 
     _virtual_display = xvfbwrapper.Xvfb(*config.RESOLUTION)
@@ -48,7 +48,7 @@ def virtual_display(request):
 @pytest.fixture(autouse=True)
 def video_capture(request, virtual_display, report_dir):
     """Capture video of test."""
-    if request.config.option.disable_video_capture:
+    if not request.config.option.enable_video_capture:
         return
 
     recorder = video_recorder.VideoRecorder(

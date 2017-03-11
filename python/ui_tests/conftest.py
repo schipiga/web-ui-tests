@@ -27,9 +27,9 @@ __all__ += [
 
 def pytest_addoption(parser):
     """Add options to pytest."""
-    parser.addoption("--disable-video-capture", action="store_true",
-                     help="Disable video capture")
-    parser.addoption("--disable-virtual-display", action="store_true",
+    parser.addoption("--enable-video-capture", action="store_true",
+                     help="Enable video capture")
+    parser.addoption("--enable-virtual-display", action="store_true",
                      help="Disable virtual display")
     parser.addoption("--browser", action='store',
                      choices=['chrome', 'firefox'],
