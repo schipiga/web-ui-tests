@@ -19,11 +19,14 @@ def slugify(string):
 
 def get_unwrapped_func(func):
     """Get original function under decorator.
+
     Decorator hides original function inside itself. But in some cases it's
     important to get access to original function, for ex: for documentation.
+
     Args:
         func (function): function that can be potentially a decorator which
             hides original function
+
     Returns:
         function: unwrapped function or the same function
     """

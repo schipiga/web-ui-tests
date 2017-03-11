@@ -19,3 +19,15 @@ Global conftest
 
 from ui_tests.fixtures import *  # noqa F403
 from ui_tests.fixtures import __all__  # noqa F401
+
+__all__ += [
+    'pytest_addoption'
+]
+
+
+def pytest_addoption(parser):
+    """Add options to pytest."""
+    parser.addoption("--disable-video-capture", action="store_true",
+                     help="Disable video capture")
+    parser.addoption("--disable-virtual-display", action="store_true",
+                     help="Disable virtual display")
