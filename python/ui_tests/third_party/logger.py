@@ -21,9 +21,9 @@ import functools
 import logging
 import time
 
-from stepler.third_party import utils
+from ui_tests.third_party import utils
 
-LOGGER = logging.getLogger('stepler.func_logger')
+LOGGER = logging.getLogger('func_logger')
 
 
 def log(func):

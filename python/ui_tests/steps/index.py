@@ -19,18 +19,16 @@ Index steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import allure
 from hamcrest import assert_that, equal_to, same_instance
 
-from ui_tests.third_party import logger
+from ui_tests.third_party import step
 
 from .base import BaseSteps
 
 
 class IndexSteps(BaseSteps):
 
-    @allure.step
-    @logger.log
+    @step.step("switch language")
     def switch_language(self, lang, check=True):
         langs = {"en": "English",
                  "ru": u"Русский"}
@@ -45,8 +43,7 @@ class IndexSteps(BaseSteps):
             assert_that(self.app.page_index.button_login.value,
                         equal_to(expects[lang]))
 
-    @allure.step
-    @logger.log
+    @step.step
     def goto_login(self, check=True):
         self.app.page_index.button_login.click()
         if check:
