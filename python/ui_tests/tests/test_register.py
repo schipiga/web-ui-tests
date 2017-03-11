@@ -1,7 +1,7 @@
 """
----------------
-Recovery fixtures
----------------
+--------------
+Register tests
+--------------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,23 +17,12 @@ Recovery fixtures
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
-
-from ui_tests import steps
-
-__all__ = [
-    'new_account_steps',
-    'recovery_steps',
-]
+import uuid
 
 
-@pytest.fixture
-def new_account_steps(app):
-    """Function fixture to get new account steps."""
-    return steps.NewAccountSteps(app)
-
-
-@pytest.fixture
-def recovery_steps(app):
-    """Function fixture to recovery steps."""
-    return steps.RecoverySteps(app)
+def test_register_user(index_steps, new_account_steps):
+    index_steps.switch_language("en")
+    index_steps.signup(name='Vasia',
+                       email=str(uuid.uuid4()) + '@ex.com',
+                       password=uuid.uuid4().hex)
+    new_account_steps.confirm_signup()

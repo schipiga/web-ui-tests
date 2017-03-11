@@ -18,11 +18,13 @@ Steps
 # limitations under the License.
 
 from ui_tests.steps.index import IndexSteps
-from ui_tests.steps.signin import SigninSteps
+from ui_tests.steps.new_account import NewAccountSteps
 from ui_tests.steps.recovery import RecoverySteps
+from ui_tests.steps.signin import SigninSteps
 
 __all__ = [
     'IndexSteps',
-    'SigninSteps',
+    'NewAccountSteps',
     'RecoverySteps',
+    'SigninSteps',
 ]

@@ -28,8 +28,18 @@ __all__ = [
 
 
 @ui.register_ui(
+    field_name=ui.TextField(By.NAME, 'name'),
+    field_email=ui.TextField(By.NAME, 'email'),
+    field_password=ui.TextField(By.NAME, 'password'))
+class FormSignup(ui.Form):
+    """Sign up form."""
+
+
+@ui.register_ui(
     button_login=ui.Button(By.CSS_SELECTOR,
-                           ".header__navigation__login .btn__label"))
+                           ".header__navigation__login .btn__label"),
+    button_signup=ui.Button(By.CSS_SELECTOR, "a[href*='signup-form']"),
+    form_signup=FormSignup(By.CSS_SELECTOR, "form[data-type='signup']"))
 class PageIndex(PageBase):
     """Index page."""
 

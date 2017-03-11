@@ -26,7 +26,8 @@ class RecoverySteps(BaseSteps):
     """Recovery steps."""
 
     def recovery_password(self, email, check=True):
-        with self.app.page_recovery.block_recovery.form_recovery_password as form:
+        with self.app.page_recovery.block_recovery \
+                .form_recovery_password as form:
             form.field_email.value = email
             form.submit()
 

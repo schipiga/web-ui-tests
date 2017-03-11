@@ -30,7 +30,7 @@ from .base import BaseSteps
 
 class IndexSteps(BaseSteps):
 
-    @step.step("switch language")
+    @step.step("Switch language to {0}")
     def switch_language(self, lang, check=True):
         langs = {"en": "English",
                  "ru": u"Русский"}
@@ -48,7 +48,7 @@ class IndexSteps(BaseSteps):
                 returns(equal_to(expects[lang]), timeout=config.PAGE_TIMEOUT),
                 "text on login button is changed to language: " + langs[lang])
 
-    @step.step
+    @step.step("Go to login page")
     def goto_login(self, check=True):
         self.app.page_index.button_login.click()
         if check:
@@ -57,3 +57,18 @@ class IndexSteps(BaseSteps):
                 returns(same_instance(self.app.page_signin),
                         timeout=config.PAGE_TIMEOUT),
                 "login page is opened")
+
+    @step.step("Sign up")
+    def signup(self, name, email, password, check=True):
+        self.app.page_index.button_signup.click()
+        with self.app.page_index.form_signup as form:
+            form.field_name.value = name
+            form.field_email.value = email
+            form.field_password.value = password
+            form.submit()
+
+        if check:
+            check_that(lambda: self.app.current_page,
+                       returns(same_instance(self.app.page_new_account),
+                               timeout=config.PAGE_TIMEOUT),
+                       "new account is created")

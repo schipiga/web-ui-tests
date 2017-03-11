@@ -17,6 +17,11 @@ New account page
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pom import ui
+from selenium.webdriver.common.by import By
+
+from ui_tests.app import ui as _ui
+
 from .base import PageBase
 
 __all__ = [
@@ -24,6 +29,16 @@ __all__ = [
 ]
 
 
+@ui.register_ui(
+    field_company_name=ui.TextField(By.NAME, 'company_name'),
+    combobox_company_industry=_ui.ComboBox(By.NAME, 'company_industry'),
+    combobox_signup_source=_ui.ComboBox(By.NAME, 'signup_source'))
+class FormConfirm(ui.Form):
+    """Confirm sign up form."""
+
+
+@ui.register_ui(
+    form_confirm=FormConfirm(By.ID, 'short_signup_step2'))
 class PageNewAccount(PageBase):
     """Page opens write after new account creation."""
 
