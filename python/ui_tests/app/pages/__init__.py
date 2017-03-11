@@ -34,5 +34,12 @@ pages = [
 ]
 
 __all__ = [
+    'PageIndex',
+    'PageNewAccount',
+    'PageRecovery',
+    'PageSignin',
+    'PageSignup',
+    'PageUserAccount',
+
     'pages',
 ]
