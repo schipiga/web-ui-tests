@@ -17,7 +17,14 @@ Config
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+
 UI_TIMEOUT = 5
 ACTION_TIMEOUT = 30
 APP_URL = 'https://pipedrive.com'
 RESOLUTION = 1366, 768
+
+TEST_REPORTS_DIR = os.environ.get(
+    "TEST_REPORTS_DIR",
+    os.path.join(os.getcwd(),  # put results to folder where tests are launched
+                 "test_reports"))

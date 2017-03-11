@@ -27,7 +27,7 @@ __all__ = [
 ]
 
 
-@pytest.fixture
+@pytest.yield_fixture
 def app():
     """Initial fixture to start."""
     app = _app.Application(config.APP_URL)

@@ -25,8 +25,11 @@ from ui_tests.fixtures.signin import *  # noqa F403
 from ui_tests.fixtures.signin import __all__ as __all_signin__  # noqa F401
 from ui_tests.fixtures.recovery import *  # noqa F403
 from ui_tests.fixtures.recovery import __all__ as __all_recovery__  # noqa F401
+from ui_tests.fixtures.report import *  # noqa F403
+from ui_tests.fixtures.report import __all__ as __all_report__  # noqa F401
 
 __all__ = (__all_app__ +
            __all_index__ +
            __all_signin__ +
-           __all_recovery__)
+           __all_recovery__ +
+           __all_report__)
