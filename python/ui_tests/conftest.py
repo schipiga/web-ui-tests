@@ -31,3 +31,6 @@ def pytest_addoption(parser):
                      help="Disable video capture")
     parser.addoption("--disable-virtual-display", action="store_true",
                      help="Disable virtual display")
+    parser.addoption("--browser", action='store',
+                     choices=['chrome', 'firefox'],
+                     help="Browser to launch web app")

@@ -1,7 +1,16 @@
+import allure
+from hamcrest import assert_that
 from hamcrest.core.base_matcher import BaseMatcher
 from hamcrest.core.core.raises import DeferredCallable
 
 from ui_tests.third_party.waiter import wait_for
+
+
+def check_that(actual, matcher, message):
+    """
+    """
+    with allure.step("Check that " + message):
+        assert_that(actual, matcher, message)
 
 
 class calling(DeferredCallable):

@@ -36,25 +36,28 @@ __all__ = [
 ]
 
 ui.UI.timeout = config.UI_TIMEOUT
-RemoteConnection.set_timeout(config.ACTION_TIMEOUT)
+RemoteConnection.set_timeout(config.PAGE_TIMEOUT)
 
 
 @pom.register_pages(pages.pages)
 class Application(pom.App):
     """Application to launch in browser."""
 
-    driver_path = ChromeDriverManager().install()
-    driver_path = GeckoDriverManager().install()
-
-    def __init__(self, url, *args, **kwgs):
+    def __init__(self, url, browser, *args, **kwgs):
         """Constructor."""
+        if browser == 'chrome':
+            webdriver_path = ChromeDriverManager().install()
+        if browser == 'firefox':
+            webdriver_path = GeckoDriverManager().install()
+        # FIXME: POM bug workaround
+        browser = 'Chrome' if browser == 'chrome' else browser
+
         super(Application, self).__init__(
-            url, browser='firefox', executable_path=self.driver_path,
+            url, browser=browser, executable_path=webdriver_path,
             *args, **kwgs)
 
         self.webdriver.maximize_window()
-        #self.webdriver.set_window_size(*config.RESOLUTION)
-        self.webdriver.set_page_load_timeout(config.ACTION_TIMEOUT)
+        self.webdriver.set_page_load_timeout(config.PAGE_TIMEOUT)
         self.webdriver.get(self.app_url)
 
     @property

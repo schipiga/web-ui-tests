@@ -20,7 +20,7 @@ Config
 import os
 
 UI_TIMEOUT = 5
-ACTION_TIMEOUT = 30
+PAGE_TIMEOUT = 30
 APP_URL = 'https://pipedrive.com'
 RESOLUTION = 1366, 768
 

@@ -19,10 +19,11 @@ Index steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from hamcrest import assert_that, equal_to, same_instance
+from hamcrest import equal_to, same_instance
 
+from ui_tests import config
 from ui_tests.third_party import step
-from ui_tests.third_party.matchers import returns
+from ui_tests.third_party.matchers import check_that, returns
 
 from .base import BaseSteps
 
@@ -41,14 +42,18 @@ class IndexSteps(BaseSteps):
             expects = {"en": "Login",
                        "ru": u"Войти"}
 
-            assert_that(lambda: self.app.page_index.button_login.is_present and
-                        self.app.page_index.button_login.value,
-                        returns(equal_to(expects[lang]), timeout=30))
+            check_that(
+                lambda: self.app.page_index.button_login.is_present and
+                self.app.page_index.button_login.value,
+                returns(equal_to(expects[lang]), timeout=config.PAGE_TIMEOUT),
+                "text on login button is changed to language: " + langs[lang])
 
     @step.step
     def goto_login(self, check=True):
         self.app.page_index.button_login.click()
         if check:
-            assert_that(
+            check_that(
                 lambda: self.app.current_page,
-                returns(same_instance(self.app.page_signin), timeout=30))
+                returns(same_instance(self.app.page_signin),
+                        timeout=config.PAGE_TIMEOUT),
+                "login page is opened")
