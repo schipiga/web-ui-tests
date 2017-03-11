@@ -22,6 +22,7 @@ Index steps
 from hamcrest import assert_that, equal_to, same_instance
 
 from ui_tests.third_party import step
+from ui_tests.third_party.matchers import returns
 
 from .base import BaseSteps
 
@@ -40,12 +41,14 @@ class IndexSteps(BaseSteps):
             expects = {"en": "Login",
                        "ru": u"Войти"}
 
-            assert_that(self.app.page_index.button_login.value,
-                        equal_to(expects[lang]))
+            assert_that(lambda: self.app.page_index.button_login.is_present and
+                        self.app.page_index.button_login.value,
+                        returns(equal_to(expects[lang]), timeout=30))
 
     @step.step
     def goto_login(self, check=True):
         self.app.page_index.button_login.click()
         if check:
-            assert_that(self.app.current_page,
-                        same_instance(self.app.page_signin))
+            assert_that(
+                lambda: self.app.current_page,
+                returns(same_instance(self.app.page_signin), timeout=30))

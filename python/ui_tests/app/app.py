@@ -26,6 +26,7 @@ from pom.base import camel2snake
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 from ui_tests import config
 from ui_tests.app import pages
@@ -43,11 +44,12 @@ class Application(pom.App):
     """Application to launch in browser."""
 
     driver_path = ChromeDriverManager().install()
+    driver_path = GeckoDriverManager().install()
 
     def __init__(self, url, *args, **kwgs):
         """Constructor."""
         super(Application, self).__init__(
-            url, browser='Chrome', executable_path=self.driver_path,
+            url, browser='firefox', executable_path=self.driver_path,
             *args, **kwgs)
 
         self.webdriver.maximize_window()
