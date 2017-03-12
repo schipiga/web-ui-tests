@@ -6,3 +6,6 @@ allure*report*
 allure*result*
 test*report*
 test*result*
+report.xml
+__pycache__
+.cache

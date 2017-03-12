@@ -27,6 +27,7 @@ __all__ = [
     'recovery_steps',
     'signin_steps',
     'user_account_steps',
+    'welcome_back_steps',
 ]
 
 
@@ -58,3 +59,9 @@ def signin_steps(app):
 def user_account_steps(app):
     """Function fixture to get user account steps."""
     return steps.UserAccountSteps(app)
+
+
+@pytest.fixture
+def welcome_back_steps(app):
+    """Function fixture to get user account steps."""
+    return steps.WelcomeBackSteps(app)

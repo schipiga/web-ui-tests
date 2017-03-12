@@ -42,3 +42,14 @@ def test_send_recovery_email(index_steps, signin_steps, recovery_steps):
     index_steps.goto_login()
     signin_steps.goto_recovery()
     recovery_steps.recovery_password(config.USER_EMAIL)
+
+
+def test_notify_recovery_email_invalid(index_steps,
+                                       signin_steps,
+                                       recovery_steps):
+    """**Scenario:**
+    """
+    index_steps.switch_language("en")
+    index_steps.goto_login()
+    signin_steps.goto_recovery()
+    recovery_steps.check_recovery_email_invalid_notification()

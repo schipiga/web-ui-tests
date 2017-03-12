@@ -1,7 +1,7 @@
 """
-----------
-Base steps
-----------
+------------------
+Welcome back steps
+------------------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,34 +23,30 @@ from ui_tests import config
 from ui_tests.third_party.matchers import check_that, returns
 from ui_tests.third_party import step
 
+from .base import BaseSteps
 
-class BaseSteps(object):
-    """Base steps."""
+__all__ = [
+    'WelcomeBackSteps',
+]
 
-    def __init__(self, app):
-        """Constructor.
 
-        Args:
-            app (object): application instance
-        """
-        self.app = app
+class WelcomeBackSteps(BaseSteps):
+    """Welcome back steps."""
 
-    @step.step("Flush session")
-    def flush_session(self, check=True):
-        """Step to flush session.
+    @step.step("Go to login page")
+    def goto_login(self, check=True):
+        """Step to go to login page.
 
         Args:
             check (bool, optional): flag whether to check step or no
 
         Raises:
-            AssertionError: if sign in page isn't open
+            AssertionError: if navigation to login page didn't happen
         """
-        self.app.flush_session()
-        self.app.current_page.refresh()
-
+        self.app.page_welcome_back.button_login.click()
         if check:
             check_that(
                 lambda: self.app.current_page,
                 returns(same_instance(self.app.page_signin),
                         timeout=config.PAGE_TIMEOUT),
-                "sign in page is opened")
+                "login page is opened")

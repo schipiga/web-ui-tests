@@ -22,6 +22,7 @@ from ui_tests.steps.new_account import NewAccountSteps
 from ui_tests.steps.recovery import RecoverySteps
 from ui_tests.steps.signin import SigninSteps
 from ui_tests.steps.user_account import UserAccountSteps
+from ui_tests.steps.welcome_back import WelcomeBackSteps
 
 __all__ = [
     'IndexSteps',
@@ -29,4 +30,5 @@ __all__ = [
     'RecoverySteps',
     'SigninSteps',
     'UserAccountSteps',
+    'WelcomeBackSteps',
 ]

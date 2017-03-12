@@ -35,7 +35,8 @@ class FormRecovery(ui.Form):
 
 @ui.register_ui(
     form_recovery_password=FormRecovery(By.ID, "forgot_password_form"),
-    label_description=ui.UI(By.CLASS_NAME, "auth-description"))
+    label_description=ui.UI(By.CLASS_NAME, "auth-description"),
+    label_error=ui.UI(By.CLASS_NAME, 'form_error'))
 class BlockRecovery(ui.Block):
     """Recovery block."""
 

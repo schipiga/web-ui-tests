@@ -41,7 +41,7 @@ class RecoverySteps(BaseSteps):
         Raises:
             AssertionError: if success notification is absent at page
         """
-        email = email or next(utils.generate_ids('@ex.com'))
+        email = email or next(utils.generate_ids(postfix='@ex.com'))
 
         with self.app.page_recovery.block_recovery \
                 .form_recovery_password as form:
@@ -54,3 +54,16 @@ class RecoverySteps(BaseSteps):
                 returns(contains_string('sent an email containing instructions'),
                         timeout=config.PAGE_TIMEOUT),
                 "email with instruction is sent")
+
+    def check_recovery_email_invalid_notification(self):
+        """Step to check that notification about invalid email is present.
+
+        Raises:
+            AssertionError: if error message is absent
+        """
+        self.recovery_password(check=False)
+        check_that(
+            lambda: self.app.page_recovery.block_recovery.label_error.value,
+            returns(contains_string('Incorrect email'),
+                    timeout=config.PAGE_TIMEOUT),
+            "error message about invalid email is present")

@@ -17,6 +17,7 @@ Signin steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import allure
 from hamcrest import equal_to, same_instance
 
 from ui_tests import config
@@ -46,7 +47,8 @@ class SigninSteps(BaseSteps):
             form.field_email.value = email
             form.field_password.value = password
             if remember:
-                form.checkbox_remember.click()
+                with allure.step("Set 'remember me' to store session"):
+                    form.checkbox_remember.click()
             form.submit()
         if check:
             check_that(
@@ -74,3 +76,19 @@ class SigninSteps(BaseSteps):
                        returns(same_instance(self.app.page_recovery),
                                timeout=config.PAGE_TIMEOUT),
                        "recovery password page is opened")
+
+    def check_user_need_confirm_signup_after_login(self, email, password):
+        """Step to check that user need confirm signup after login.
+
+        Args:
+            email (str): user email
+            password (str): user password
+
+        Raises:
+            AssertionError: if new account page isn't opened
+        """
+        self.login(email, password, check=False)
+        check_that(lambda: self.app.current_page,
+                   returns(same_instance(self.app.page_new_account),
+                           timeout=config.PAGE_TIMEOUT),
+                   "new account page is opened")

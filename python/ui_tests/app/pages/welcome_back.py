@@ -17,14 +17,14 @@ Welcome back page
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .base import PageBase
+from .index import PageIndex
 
 __all__ = [
     'PageWelcomeBack',
 ]
 
 
-class PageWelcomeBack(PageBase):
+class PageWelcomeBack(PageIndex):
     """Welcome back page."""
 
     url = r'/.+/welcomeback'

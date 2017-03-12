@@ -1,7 +1,7 @@
 """
------------------
+------------------
 User account steps
------------------
+------------------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@ from hamcrest import same_instance
 from ui_tests import config
 from ui_tests.third_party.matchers import check_that, returns
 from ui_tests.third_party import step
-from ui_tests.third_party import utils
 
 from .base import BaseSteps
 
@@ -55,26 +54,6 @@ class UserAccountSteps(BaseSteps):
                         timeout=config.PAGE_TIMEOUT),
                 "welcome back page is opened")
 
-    @step.step("Flush session")
-    def flush_session(self, check=True):
-        """Step to flush session.
-
-        Args:
-            check (bool, optional): flag whether to check step or no
-
-        Raises:
-            AssertionError: if sign in page isn't open
-        """
-        self.app.flush_session()
-        self.app.current_page.refresh()
-
-        if check:
-            check_that(
-                lambda: self.app.current_page,
-                returns(same_instance(self.app.page_signin),
-                        timeout=config.PAGE_TIMEOUT),
-                "sign in page is opened")
-
     @step.step("Restart browser and open the same page")
     def _restart_browser(self):
         url = self.app.current_url
@@ -82,7 +61,11 @@ class UserAccountSteps(BaseSteps):
         self.app.open(url)
 
     def check_session_reset_after_browser_restart(self):
-        """Step to check that session reset after browser_restart."""
+        """Step to check that session reset after browser_restart.
+
+        Raises:
+            AssertionError: if sign in page isn't opened
+        """
         self._restart_browser()
         check_that(
             lambda: self.app.current_page,
@@ -91,7 +74,11 @@ class UserAccountSteps(BaseSteps):
             "sign in page is opened")
 
     def check_session_saved_after_browser_restart(self):
-        """Step to check that session saved after browser_restart."""
+        """Step to check that session saved after browser_restart.
+
+        Raises:
+            AssertionError: if user account page isn't opened
+        """
         self._restart_browser()
         check_that(
             lambda: self.app.current_page,

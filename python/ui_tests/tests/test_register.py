@@ -20,7 +20,9 @@ Register tests
 
 def test_register_user_and_login(index_steps,
                                  new_account_steps,
-                                 user_account_steps):
+                                 signin_steps,
+                                 user_account_steps,
+                                 welcome_back_steps):
     """**Scenario:** User logs in successfully
 
     **Setup:**
@@ -38,6 +40,25 @@ def test_register_user_and_login(index_steps,
     #. Close browser.
     """
     index_steps.switch_language("en")
-    index_steps.signup()
+    user_data = index_steps.signup()
+    new_account_steps.confirm_signup()
+    user_account_steps.logout()
+    welcome_back_steps.goto_login()
+    signin_steps.login(user_data['email'], user_data['password'],
+                       name=user_data['name'])
+    user_account_steps.logout()
+
+
+def test_register_postpone(index_steps,
+                           new_account_steps,
+                           signin_steps,
+                           user_account_steps):
+    """
+    """
+    index_steps.switch_language("en")
+    user_data = index_steps.signup()
+    new_account_steps.flush_session()
+    signin_steps.check_user_need_confirm_signup_after_login(
+        user_data['email'], user_data['password'])
     new_account_steps.confirm_signup()
     user_account_steps.logout()
