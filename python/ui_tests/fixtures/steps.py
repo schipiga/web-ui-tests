@@ -1,7 +1,7 @@
 """
----------------
-Recovery fixtures
----------------
+--------------
+Steps fixtures
+--------------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +22,16 @@ import pytest
 from ui_tests import steps
 
 __all__ = [
+    'index_steps',
     'new_account_steps',
     'recovery_steps',
 ]
+
+
+@pytest.fixture
+def index_steps(app):
+    """Function fixture to get index steps."""
+    return steps.IndexSteps(app)
 
 
 @pytest.fixture
@@ -35,5 +42,11 @@ def new_account_steps(app):
 
 @pytest.fixture
 def recovery_steps(app):
-    """Function fixture to recovery steps."""
+    """Function fixture to get recovery steps."""
     return steps.RecoverySteps(app)
+
+
+@pytest.fixture
+def signin_steps(app):
+    """Function fixture to get signin steps."""
+    return steps.SigninSteps(app)

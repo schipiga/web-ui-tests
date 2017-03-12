@@ -24,7 +24,7 @@ class BaseSteps(object):
     def __init__(self, app):
         """Constructor.
 
-        Arguments:
+        Args:
             app (object): application instance
         """
         self.app = app

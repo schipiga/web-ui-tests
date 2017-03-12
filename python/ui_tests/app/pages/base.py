@@ -21,6 +21,7 @@ import pom
 from pom import ui
 from selenium.webdriver.common.by import By
 
+from ui_tests.app import ui as _ui
 
 __all__ = [
     'PageBase',
@@ -28,7 +29,7 @@ __all__ = [
 
 
 @ui.register_ui(
-    combobox_lang=ui.ComboBox(By.NAME, "language-picker"))
+    combobox_lang=_ui.ComboBox(By.NAME, "language-picker"))
 class Footer(ui.Block):
     """Footer."""
 

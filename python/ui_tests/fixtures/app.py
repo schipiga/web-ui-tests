@@ -29,7 +29,7 @@ __all__ = [
 
 @pytest.yield_fixture
 def app(request):
-    """Initial fixture to start."""
+    """Function fixture to start web application."""
     app = _app.Application(config.APP_URL, request.config.option.browser)
 
     yield app

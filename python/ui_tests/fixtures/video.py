@@ -1,3 +1,22 @@
+"""
+--------------
+Steps fixtures
+--------------
+"""
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import os
 
 import allure
@@ -6,8 +25,8 @@ import pytest
 import xvfbwrapper
 
 from ui_tests import config
-from ui_tests.third_party import video_recorder
 from ui_tests.third_party import process_mutex
+from ui_tests.third_party import video_recorder
 
 
 __all__ = [
@@ -17,6 +36,7 @@ __all__ = [
 
 
 class AttachmentType(enum.Enum):
+    """Custom attachment type for video."""
 
     def __init__(self, mime_type, extension):
         self.mime_type = mime_type
@@ -27,7 +47,7 @@ class AttachmentType(enum.Enum):
 
 @pytest.fixture(scope='session')
 def virtual_display(request):
-    """Run test in virtual X server if env var is defined."""
+    """Session fixture to run test in virtual X server."""
     if not request.config.option.enable_virtual_display:
         return
 
@@ -47,12 +67,12 @@ def virtual_display(request):
 
 @pytest.fixture(autouse=True)
 def video_capture(request, virtual_display, report_dir):
-    """Capture video of test."""
+    """Autouse function fixture to capture video of test."""
     if not request.config.option.enable_video_capture:
         return
 
     recorder = video_recorder.VideoRecorder(
-        os.path.join(report_dir, 'video.mp4'))
+        os.path.join(report_dir, 'video.mp4'), config.RESOLUTION)
     recorder.start()
 
     def fin():

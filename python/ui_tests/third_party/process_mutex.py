@@ -19,6 +19,10 @@ Interprocess locker
 
 import fcntl
 
+__all__ = [
+    'Lock',
+]
+
 
 class Lock(object):
     """Process mutex."""

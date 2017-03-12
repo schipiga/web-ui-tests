@@ -1,9 +1,29 @@
-import inspect
+"""
+-----
+Utils
+-----
+"""
 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import inspect
+import uuid
 
 __all__ = [
-    'slugify',
+    'generate_ids',
     'get_unwrapped_func',
+    'slugify',
 ]
 
 
@@ -42,3 +62,14 @@ def get_unwrapped_func(func):
                 else:
                     return get_unwrapped_func(obj)
     return func
+
+
+def generate_ids(prefix=None, postfix=None, count=1):
+    """Generate unique IDs."""
+    for _ in range(count):
+        result = str(uuid.uuid())[:8]
+        if prefix:
+            result = prefix + result
+        if postfix:
+            result += postfix
+        yield result

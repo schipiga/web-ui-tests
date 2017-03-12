@@ -23,6 +23,10 @@ import time
 
 from ui_tests.third_party import utils
 
+__all__ = [
+    'log',
+]
+
 LOGGER = logging.getLogger('func_logger')
 
 

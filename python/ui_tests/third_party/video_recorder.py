@@ -30,13 +30,13 @@ LOGGER = logging.getLogger(__name__)
 class VideoRecorder(object):
     """Video capture of display."""
 
-    def __init__(self, file_path, frame_rate=30):
+    def __init__(self, file_path, resolution, frame_rate=30):
         """Constructor."""
         self.is_launched = False
         self.file_path = file_path
         # avconv -f x11grab -r 15 -s 1920x1080 -i :0.0 -codec libx264 out.mp4
         self._cmd = ['avconv', '-f', 'x11grab', '-r', str(frame_rate),
-                     '-s', '{}x{}'.format(1366, 768),
+                     '-s', '{}x{}'.format(*resolution),
                      '-i', os.environ['DISPLAY'],
                      '-codec', 'libx264', self.file_path]
 

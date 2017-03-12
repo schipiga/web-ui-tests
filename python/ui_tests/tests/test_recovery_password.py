@@ -19,7 +19,24 @@ Recovery password tests
 
 
 def test_send_recovery_email(index_steps, signin_steps, recovery_steps):
+    """**Scenario:** User logs in successfully
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Click link "Login" to go to login page.
+    #. Click link "forgot?" to go to recovery password page.
+    #. Specified recovered user email and submit form.
+
+    **Teardown:**
+
+    #. Close browser.
+    """
     index_steps.switch_language("en")
     index_steps.goto_login()
     signin_steps.goto_recovery()
-    recovery_steps.recovery_password(email="user@example.com")
+    recovery_steps.recovery_password()

@@ -1,37 +1,50 @@
+"""
+------------------------
+Custom hamcrest matchers
+------------------------
+"""
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import allure
 from hamcrest import assert_that
 from hamcrest.core.base_matcher import BaseMatcher
 from hamcrest.core.core.raises import DeferredCallable
+import waiting
 
-from ui_tests.third_party.waiter import wait_for
+__all__ = [
+    'calling',
+    'check_that',
+    'returns',
+]
 
 
 def check_that(actual, matcher, message):
-    """
-    """
+    """Wrapper over ``assert_that`` to add step in allure report."""
     with allure.step("Check that " + message):
         assert_that(actual, matcher, message)
 
 
 class calling(DeferredCallable):
+    """Custom ``calling`` to return result after call."""
 
     def __call__(self):
         return self.func(*self.args, **self.kwargs)
 
 
 class returns(BaseMatcher):
-    """Matcher to check that a result is being matched during timeout.
-    Usage example:
-        assert_that(A, returns(has_property('x', 2), timeout=1))
-    Result:
-        Expected: an object with a property 'x' matching <2> during 1 sec.
-             but: property 'x' was <1>
-    Variants:
-        assert_that(calling(A), returns(has_property('x', 2), timeout=3))
-        assert_that(calling(x).with_args(2, 3, y=5), returns(equal_to(7), timeout=1))
-        assert_that(lambda: 5, returns(equal_to(2), timeout=5))
-        assert_that(calling(lambda x: 5).with_args(x=5), returns(equal_to(5), timeout=1))
-    """
+    """Matcher to check that a result is being matched during timeout."""
 
     def __init__(self, matcher, timeout):
         self.matcher = matcher
@@ -44,7 +57,7 @@ class returns(BaseMatcher):
             self.last_result = function()
             return self.matcher.matches(self.last_result)
 
-        return wait_for(self.timeout, f)
+        return waiting.wait(f, timeout_seconds=self.timeout, sleep_seconds=0.1)
 
     def describe_to(self, description):
         description.append_description_of(self.matcher).append_text(

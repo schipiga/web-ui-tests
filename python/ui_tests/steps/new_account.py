@@ -17,12 +17,13 @@ New account steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import uuid
 
 from hamcrest import same_instance
 
 from ui_tests import config
 from ui_tests.third_party.matchers import check_that, returns
+from ui_tests.third_party import step
+from ui_tests.third_party import utils
 
 from .base import BaseSteps
 
@@ -32,12 +33,23 @@ __all__ = [
 
 
 class NewAccountSteps(BaseSteps):
-    """New account steps."""
+    """New account page steps."""
 
+    @step.step("Confirm new user sign up")
     def confirm_signup(self, company_name=None, check=True):
-        """Step to confirm sign up."""
+        """Step to confirm sign up.
+
+        Args:
+            company_name (str): name of user's company
+            check (bool, optional): flag whether to check step or no
+
+        Raises:
+            AssertionError: if account doesn't confirm
+        """
+        company_name = company_name or next(utils.generate_ids())
+
         with self.app.page_new_account.form_confirm as form:
-            form.field_company_name.value = company_name or str(uuid.uuid4())
+            form.field_company_name.value = company_name
             form.combobox_company_industry.value = \
                 form.combobox_company_industry.values[1]
             if form.combobox_signup_source.is_present:

@@ -17,29 +17,48 @@ Signin steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from hamcrest import assert_that, equal_to, same_instance
+from hamcrest import equal_to, same_instance
 
-from ui_tests.third_party.matchers import returns
+from ui_tests.third_party.matchers import check_that, returns
+from ui_tests.third_party import step
 
 from .base import BaseSteps
 
 
 class SigninSteps(BaseSteps):
+    """Sign in page steps."""
 
+    @step.step("Log in with email {0} and password {1}")
     def login(self, email, password, name=None, check=True):
+        """Step to log in.
+
+        Args:
+            email (str): email of user
+            password (str): password of user
+            name (str, optional): name of user (for verification only)
+
+        Raises:
+            AssertionError: if user didn't log in
+        """
         with self.app.page_signin.form_login as form:
             form.field_email.value = email
             form.field_password.value = password
             form.submit()
         if check:
-            assert_that(
+            check_that(
                 lambda: self.app.current_page,
                 returns(same_instance(self.app.page_user_account), timeout=30))
-            assert_that(self.app.page_user_account.label_user_name.value,
-                        equal_to(name))
+            check_that(self.app.page_user_account.label_user_name.value,
+                       equal_to(name))
 
+    @step.step("Go to recovery password page")
     def goto_recovery(self, check=True):
+        """Step to navigate to recovery password page
+
+        Raises:
+            AssertionError: if navigation didn't happen
+        """
         self.app.page_signin.form_login.link_forgot.click()
         if check:
-            assert_that(self.app.current_page,
-                        same_instance(self.app.page_recovery))
+            check_that(self.app.current_page,
+                       same_instance(self.app.page_recovery))

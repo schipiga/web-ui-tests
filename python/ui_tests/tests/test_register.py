@@ -17,12 +17,24 @@ Register tests
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import uuid
-
 
 def test_register_user(index_steps, new_account_steps):
+    """**Scenario:** User logs in successfully
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Sign up with credentials.
+    #. Confirm sign up.
+
+    **Teardown:**
+
+    #. Close browser.
+    """
     index_steps.switch_language("en")
-    index_steps.signup(name='Vasia',
-                       email=str(uuid.uuid4()) + '@ex.com',
-                       password=uuid.uuid4().hex)
+    index_steps.signup()
     new_account_steps.confirm_signup()

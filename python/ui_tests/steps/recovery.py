@@ -17,21 +17,37 @@ Recovery steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from hamcrest import assert_that, contains_string
+from hamcrest import contains_string
+
+from ui_tests.third_party.matchers import check_that
+from ui_tests.third_party import step
+from ui_tests.third_party import utils
 
 from .base import BaseSteps
 
 
 class RecoverySteps(BaseSteps):
-    """Recovery steps."""
+    """Recovery page steps."""
 
-    def recovery_password(self, email, check=True):
+    @step.step("Recovery password")
+    def recovery_password(self, email=None, check=True):
+        """Step to recovery password.
+
+        Args:
+            email (str, optional): email of recovered user
+            check (bool, optional): flag whether to check step or no
+
+        Raises:
+            AssertionError: if success notification is absent at page
+        """
+        email = email or next(utils.generate_ids()) + '@ex.com'
+
         with self.app.page_recovery.block_recovery \
                 .form_recovery_password as form:
             form.field_email.value = email
             form.submit()
 
         if check:
-            assert_that(
+            check_that(
                 self.app.page_recovery.block_recovery.label_description.value,
                 contains_string('sent an email containing instructions'))

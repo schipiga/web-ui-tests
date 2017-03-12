@@ -72,14 +72,16 @@ class Application(pom.App):
 
     def open(self, page):
         """Open page or url.
+
         Args:
-            page (PageBase|str): page class or url string.
+            page (page|str): page class or url string.
         """
         url = page if isinstance(page, str) else page.url
         super(Application, self).open(url)
 
     def flush_session(self):
         """Delete all cookies.
+
         It forces flushes user session by cookies deleting.
         """
         self.webdriver.delete_all_cookies()

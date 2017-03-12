@@ -36,7 +36,7 @@ __all__ = [
 
 @pytest.fixture
 def report_dir(request):
-    """Create report directory.
+    """Function fixture to create report directory.
 
     Args:
         request (object): pytest request
@@ -55,7 +55,7 @@ def report_dir(request):
 
 @pytest.yield_fixture(autouse=True)
 def report_log(report_dir):
-    """Configure log handlers to write test logs.
+    """Autouse function fixture to configure log handlers to write test logs.
 
     Args:
         report_dir (str): path to report directory

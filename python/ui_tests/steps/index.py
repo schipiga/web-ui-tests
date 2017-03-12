@@ -22,16 +22,27 @@ Index steps
 from hamcrest import equal_to, same_instance
 
 from ui_tests import config
-from ui_tests.third_party import step
 from ui_tests.third_party.matchers import check_that, returns
+from ui_tests.third_party import step
+from ui_tests.third_party import utils
 
 from .base import BaseSteps
 
 
 class IndexSteps(BaseSteps):
+    """Index page steps."""
 
     @step.step("Switch language to {0}")
     def switch_language(self, lang, check=True):
+        """Step to switch language.
+
+        Args:
+            lang (str): switch language code
+            check (bool, optional): flag whether to check step or no
+
+        Raises:
+            AssertionError: if page will not switched to expected language
+        """
         langs = {"en": "English",
                  "ru": u"Русский"}
 
@@ -50,6 +61,14 @@ class IndexSteps(BaseSteps):
 
     @step.step("Go to login page")
     def goto_login(self, check=True):
+        """Step to go to login page.
+
+        Args:
+            check (bool, optional): flag whether to check step or no
+
+        Raises:
+            AssertionError: if navigation to login page didn't happen
+        """
         self.app.page_index.button_login.click()
         if check:
             check_that(
@@ -59,7 +78,22 @@ class IndexSteps(BaseSteps):
                 "login page is opened")
 
     @step.step("Sign up")
-    def signup(self, name, email, password, check=True):
+    def signup(self, name=None, email=None, password=None, check=True):
+        """Step to sign up.
+
+        Args:
+            name (str, optional): name of new user
+            email (str, optional): email of new user
+            password (str, optional): password of new user
+            check (bool, optional): flag whether to check step or no
+
+        Raises:
+            AssertionError: if sign up didn't happen
+        """
+        name = name or next(utils.generate_ids())
+        email = email or next(utils.generate_ids(postfix="@ex.com"))
+        password = password or next(utils.generate_ids())
+
         self.app.page_index.button_signup.click()
         with self.app.page_index.form_signup as form:
             form.field_name.value = name
@@ -72,3 +106,5 @@ class IndexSteps(BaseSteps):
                        returns(same_instance(self.app.page_new_account),
                                timeout=config.PAGE_TIMEOUT),
                        "new account is created")
+
+        return {'name': name, 'email': email, 'password': password}

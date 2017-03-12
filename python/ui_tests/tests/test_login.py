@@ -19,6 +19,22 @@ Login tests
 
 
 def test_user_login_successfully(index_steps, signin_steps):
+    """**Scenario:** User logs in successfully
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Click link "Login" to go to login page.
+    #. Log in with credentials.
+
+    **Teardown:**
+
+    #. Close browser.
+    """
     index_steps.switch_language("en")
     index_steps.goto_login()
     signin_steps.login(email="vasia@example.com", password="a1b42z3a",
