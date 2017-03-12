@@ -58,7 +58,12 @@ class returns(BaseMatcher):
             self.last_result = function()
             return self.matcher.matches(self.last_result)
 
-        return waiting.wait(f, timeout_seconds=self.timeout, sleep_seconds=0.1)
+        try:
+            return waiting.wait(f,
+                                timeout_seconds=self.timeout,
+                                sleep_seconds=0.1)
+        except waiting.TimeoutExpired:
+            return False
 
     def describe_to(self, description):
         description.append_description_of(self.matcher).append_text(

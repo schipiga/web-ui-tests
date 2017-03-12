@@ -18,7 +18,9 @@ Register tests
 # limitations under the License.
 
 
-def test_register_user(index_steps, new_account_steps):
+def test_register_user_and_login(index_steps,
+                                 new_account_steps,
+                                 user_account_steps):
     """**Scenario:** User logs in successfully
 
     **Setup:**
@@ -38,3 +40,4 @@ def test_register_user(index_steps, new_account_steps):
     index_steps.switch_language("en")
     index_steps.signup()
     new_account_steps.confirm_signup()
+    user_account_steps.logout()

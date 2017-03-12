@@ -20,7 +20,9 @@ Login tests
 from ui_tests import config
 
 
-def test_user_login_successfully(index_steps, signin_steps):
+def test_user_login_logout(index_steps,
+                           signin_steps,
+                           user_account_steps):
     """**Scenario:** User logs in successfully
 
     **Setup:**
@@ -32,6 +34,7 @@ def test_user_login_successfully(index_steps, signin_steps):
     #. Switch language to English.
     #. Click link "Login" to go to login page.
     #. Log in with credentials.
+    #. Log out.
 
     **Teardown:**
 
@@ -41,3 +44,51 @@ def test_user_login_successfully(index_steps, signin_steps):
     index_steps.goto_login()
     signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,
                        name=config.USER_NAME)
+    user_account_steps.logout()
+
+
+def test_login_reset_after_flush_session(index_steps,
+                                         signin_steps,
+                                         user_account_steps):
+    """**Scenario:** User logs in successfully
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Click link "Login" to go to login page.
+    #. Log in with credentials.
+    #. Flush session and check that login page opens after refresh.
+
+    **Teardown:**
+
+    #. Close browser.
+    """
+    index_steps.switch_language("en")
+    index_steps.goto_login()
+    signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,
+                       name=config.USER_NAME)
+    user_account_steps.flush_session()
+
+
+def test_login_reset_after_browser_restart(index_steps,
+                                           signin_steps,
+                                           user_account_steps):
+    index_steps.switch_language("en")
+    index_steps.goto_login()
+    signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,
+                       name=config.USER_NAME)
+    user_account_steps.check_session_reset_after_browser_restart()
+
+
+def test_login_saved_after_browser_restart(index_steps,
+                                           signin_steps,
+                                           user_account_steps):
+    index_steps.switch_language("en")
+    index_steps.goto_login()
+    signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,
+                       name=config.USER_NAME, remember=True)
+    user_account_steps.check_session_saved_after_browser_restart()

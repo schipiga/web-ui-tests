@@ -30,7 +30,8 @@ __all__ = [
 @ui.register_ui(
     field_email=ui.TextField(By.NAME, "login"),
     field_password=ui.TextField(By.NAME, "password"),
-    link_forgot=ui.Link(By.CSS_SELECTOR, "a[href*='forgot_password']"))
+    link_forgot=ui.Link(By.CSS_SELECTOR, "a[href*='forgot_password']"),
+    checkbox_remember=ui.UI(By.CSS_SELECTOR, "label[for='remember']"))
 class FormLogin(ui.Form):
     """Login form."""
 

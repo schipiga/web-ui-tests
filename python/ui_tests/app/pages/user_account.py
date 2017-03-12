@@ -27,7 +27,11 @@ __all__ = [
 ]
 
 
-@ui.register_ui(label_user_name=ui.UI(By.CSS_SELECTOR, ".userInfo > .name"))
+@ui.register_ui(
+    label_user_name=ui.UI(By.CSS_SELECTOR, ".userInfo > .name"),
+    link_account_dropdown_menu=ui.Link(By.CSS_SELECTOR,
+                                       'a[data-dropmenu="profile"]'),
+    link_logout=ui.Link(By.CSS_SELECTOR, "a[href*='/auth/logout']"))
 class PageUserAccount(PageBase):
     """User account page."""
 

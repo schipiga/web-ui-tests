@@ -1,7 +1,7 @@
 """
------
-Steps
------
+-----------------
+Welcome back page
+-----------------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,16 +17,14 @@ Steps
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ui_tests.steps.index import IndexSteps
-from ui_tests.steps.new_account import NewAccountSteps
-from ui_tests.steps.recovery import RecoverySteps
-from ui_tests.steps.signin import SigninSteps
-from ui_tests.steps.user_account import UserAccountSteps
+from .base import PageBase
 
 __all__ = [
-    'IndexSteps',
-    'NewAccountSteps',
-    'RecoverySteps',
-    'SigninSteps',
-    'UserAccountSteps',
+    'PageWelcomeBack',
 ]
+
+
+class PageWelcomeBack(PageBase):
+    """Welcome back page."""
+
+    url = r'/.+/welcomeback'

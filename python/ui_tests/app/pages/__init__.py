@@ -23,6 +23,7 @@ from ui_tests.app.pages.recovery import PageRecovery
 from ui_tests.app.pages.signin import PageSignin
 from ui_tests.app.pages.signup import PageSignup
 from ui_tests.app.pages.user_account import PageUserAccount
+from ui_tests.app.pages.welcome_back import PageWelcomeBack
 
 pages = [
     PageIndex,
@@ -31,6 +32,7 @@ pages = [
     PageSignin,
     PageSignup,
     PageUserAccount,
+    PageWelcomeBack,
 ]
 
 __all__ = [
@@ -40,6 +42,7 @@ __all__ = [
     'PageSignin',
     'PageSignup',
     'PageUserAccount',
+    'PageWelcomeBack',
 
     'pages',
 ]

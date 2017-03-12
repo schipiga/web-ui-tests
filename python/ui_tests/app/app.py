@@ -18,13 +18,14 @@ Application
 # limitations under the License.
 
 import re
+import tempfile
 import urlparse
 
 import pom
 from pom import ui
 from pom.base import camel2snake
+from selenium import webdriver
 from selenium.webdriver.remote.remote_connection import RemoteConnection
-
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
@@ -45,16 +46,37 @@ class Application(pom.App):
 
     def __init__(self, url, browser, *args, **kwgs):
         """Constructor."""
+        profile_dir = tempfile.mkdtemp()
+
         if browser == 'chrome':
             webdriver_path = ChromeDriverManager().install()
+            options = webdriver.ChromeOptions()
+            options.add_argument("user-data-dir=" + profile_dir)
+            kwgs['chrome_options'] = options
+
         if browser == 'firefox':
             webdriver_path = GeckoDriverManager().install()
+            profile = webdriver.FirefoxProfile(profile_dir)
+            kwgs['firefox_profile'] = profile
+
         # FIXME: POM bug workaround
         browser = 'Chrome' if browser == 'chrome' else browser
 
+        self._url = url
+        self._webdriver_path = webdriver_path
+        self._browser = browser
+        self._browser_args = args
+        self._browser_kwgs = kwgs
+
+        self.start()
+
+    def start(self):
         super(Application, self).__init__(
-            url, browser=browser, executable_path=webdriver_path,
-            *args, **kwgs)
+            self._url,
+            browser=self._browser,
+            executable_path=self._webdriver_path,
+            *self._browser_args,
+            **self._browser_kwgs)
 
         self.webdriver.maximize_window()
         self.webdriver.set_page_load_timeout(config.PAGE_TIMEOUT)
@@ -63,12 +85,17 @@ class Application(pom.App):
     @property
     def current_page(self):
         """Define current page"""
-        current_path = urlparse.urlparse(self.webdriver.current_url).path
+        current_path = urlparse.urlparse(self.current_url).path
         for page in self._registered_pages:
             if re.match(page.url, current_path):
                 return getattr(self, camel2snake(page.__name__))
         else:
             raise Exception("Can't define current page")
+
+    @property
+    def current_url(self):
+        """Get current URL."""
+        return self.webdriver.current_url
 
     def open(self, page):
         """Open page or url.
@@ -76,8 +103,10 @@ class Application(pom.App):
         Args:
             page (page|str): page class or url string.
         """
-        url = page if isinstance(page, str) else page.url
-        super(Application, self).open(url)
+        url = page if isinstance(page, (str, unicode)) else page.url
+        if not url.startswith('http'):
+            url = self.app_url + url
+        self.webdriver.get(url)
 
     def flush_session(self):
         """Delete all cookies.
@@ -85,3 +114,8 @@ class Application(pom.App):
         It forces flushes user session by cookies deleting.
         """
         self.webdriver.delete_all_cookies()
+
+    def restart(self):
+        """Restart browser with the same profile dir."""
+        self.quit()
+        self.start()
