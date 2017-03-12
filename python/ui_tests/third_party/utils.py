@@ -67,7 +67,7 @@ def get_unwrapped_func(func):
 def generate_ids(prefix=None, postfix=None, count=1):
     """Generate unique IDs."""
     for _ in range(count):
-        result = str(uuid.uuid())[:8]
+        result = 'a' + str(uuid.uuid4())[:8]
         if prefix:
             result = prefix + result
         if postfix:

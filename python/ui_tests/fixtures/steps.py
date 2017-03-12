@@ -25,6 +25,7 @@ __all__ = [
     'index_steps',
     'new_account_steps',
     'recovery_steps',
+    'signin_steps',
 ]
 
 

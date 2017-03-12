@@ -17,6 +17,8 @@ Recovery password tests
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from ui_tests import config
+
 
 def test_send_recovery_email(index_steps, signin_steps, recovery_steps):
     """**Scenario:** User logs in successfully
@@ -39,4 +41,4 @@ def test_send_recovery_email(index_steps, signin_steps, recovery_steps):
     index_steps.switch_language("en")
     index_steps.goto_login()
     signin_steps.goto_recovery()
-    recovery_steps.recovery_password()
+    recovery_steps.recovery_password(config.USER_EMAIL)

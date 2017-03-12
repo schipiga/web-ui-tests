@@ -24,6 +24,10 @@ PAGE_TIMEOUT = 30
 APP_URL = 'https://pipedrive.com'
 RESOLUTION = 1366, 768
 
+USER_EMAIL = "vasia@example.com"
+USER_PASSWD = "a1b42z3a"
+USER_NAME = "Vasia"
+
 TEST_REPORTS_DIR = os.environ.get(
     "TEST_REPORTS_DIR",
     os.path.join(os.getcwd(),  # put results to folder where tests are launched

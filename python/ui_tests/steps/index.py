@@ -32,7 +32,7 @@ from .base import BaseSteps
 class IndexSteps(BaseSteps):
     """Index page steps."""
 
-    @step.step("Switch language to {0}")
+    @step.step("Switch language to {1}")
     def switch_language(self, lang, check=True):
         """Step to switch language.
 

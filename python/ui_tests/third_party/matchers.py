@@ -32,6 +32,7 @@ __all__ = [
 
 def check_that(actual, matcher, message):
     """Wrapper over ``assert_that`` to add step in allure report."""
+    __tracebackhide__ = True
     with allure.step("Check that " + message):
         assert_that(actual, matcher, message)
 

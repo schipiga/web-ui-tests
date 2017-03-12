@@ -19,6 +19,7 @@ Signin steps
 
 from hamcrest import equal_to, same_instance
 
+from ui_tests import config
 from ui_tests.third_party.matchers import check_that, returns
 from ui_tests.third_party import step
 
@@ -28,7 +29,7 @@ from .base import BaseSteps
 class SigninSteps(BaseSteps):
     """Sign in page steps."""
 
-    @step.step("Log in with email {0} and password {1}")
+    @step.step("Log in with email {1} and password {2}")
     def login(self, email, password, name=None, check=True):
         """Step to log in.
 
@@ -47,9 +48,12 @@ class SigninSteps(BaseSteps):
         if check:
             check_that(
                 lambda: self.app.current_page,
-                returns(same_instance(self.app.page_user_account), timeout=30))
+                returns(same_instance(self.app.page_user_account),
+                        timeout=config.PAGE_TIMEOUT),
+                "user account page is opened")
             check_that(self.app.page_user_account.label_user_name.value,
-                       equal_to(name))
+                       equal_to(name),
+                       "user account page contains user name")
 
     @step.step("Go to recovery password page")
     def goto_recovery(self, check=True):
@@ -60,5 +64,7 @@ class SigninSteps(BaseSteps):
         """
         self.app.page_signin.form_login.link_forgot.click()
         if check:
-            check_that(self.app.current_page,
-                       same_instance(self.app.page_recovery))
+            check_that(lambda: self.app.current_page,
+                       returns(same_instance(self.app.page_recovery),
+                               timeout=config.PAGE_TIMEOUT),
+                       "recovery password page is opened")

@@ -17,6 +17,8 @@ Login tests
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from ui_tests import config
+
 
 def test_user_login_successfully(index_steps, signin_steps):
     """**Scenario:** User logs in successfully
@@ -37,5 +39,5 @@ def test_user_login_successfully(index_steps, signin_steps):
     """
     index_steps.switch_language("en")
     index_steps.goto_login()
-    signin_steps.login(email="vasia@example.com", password="a1b42z3a",
-                       name="Vasia")
+    signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,
+                       name=config.USER_NAME)

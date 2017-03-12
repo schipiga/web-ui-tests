@@ -19,7 +19,8 @@ Recovery steps
 
 from hamcrest import contains_string
 
-from ui_tests.third_party.matchers import check_that
+from ui_tests import config
+from ui_tests.third_party.matchers import check_that, returns
 from ui_tests.third_party import step
 from ui_tests.third_party import utils
 
@@ -40,7 +41,7 @@ class RecoverySteps(BaseSteps):
         Raises:
             AssertionError: if success notification is absent at page
         """
-        email = email or next(utils.generate_ids()) + '@ex.com'
+        email = email or next(utils.generate_ids('@ex.com'))
 
         with self.app.page_recovery.block_recovery \
                 .form_recovery_password as form:
@@ -49,5 +50,7 @@ class RecoverySteps(BaseSteps):
 
         if check:
             check_that(
-                self.app.page_recovery.block_recovery.label_description.value,
-                contains_string('sent an email containing instructions'))
+                lambda: self.app.page_recovery.block_recovery.label_description.value,
+                returns(contains_string('sent an email containing instructions'),
+                        timeout=config.PAGE_TIMEOUT),
+                "email with instruction is sent")
