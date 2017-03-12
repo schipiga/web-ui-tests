@@ -23,7 +23,7 @@ from ui_tests import config
 def test_user_login_logout(index_steps,
                            signin_steps,
                            user_account_steps):
-    """**Scenario:** User logs in successfully
+    """**Scenario:** User logs in and logs out successfully
 
     **Setup:**
 
@@ -50,7 +50,7 @@ def test_user_login_logout(index_steps,
 def test_login_reset_after_flush_session(index_steps,
                                          signin_steps,
                                          user_account_steps):
-    """**Scenario:** User logs in successfully
+    """**Scenario:** User session is reset after clear cookies.
 
     **Setup:**
 
@@ -61,7 +61,7 @@ def test_login_reset_after_flush_session(index_steps,
     #. Switch language to English.
     #. Click link "Login" to go to login page.
     #. Log in with credentials.
-    #. Flush session and check that login page opens after refresh.
+    #. Restart browser and check that user session is reset.
 
     **Teardown:**
 
@@ -77,6 +77,23 @@ def test_login_reset_after_flush_session(index_steps,
 def test_login_reset_after_browser_restart(index_steps,
                                            signin_steps,
                                            user_account_steps):
+    """**Scenario:** User session is reset after browser restart.
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Click link "Login" to go to login page.
+    #. Log in with credentials and set a flag to remember session.
+    #. Restart browser and check that user session is reset.
+
+    **Teardown:**
+
+    #. Close browser.
+    """
     index_steps.switch_language("en")
     index_steps.goto_login()
     signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,

@@ -23,7 +23,7 @@ def test_register_user_and_login(index_steps,
                                  signin_steps,
                                  user_account_steps,
                                  welcome_back_steps):
-    """**Scenario:** User logs in successfully
+    """**Scenario:** User signs up, logs out and logs in again.
 
     **Setup:**
 
@@ -34,6 +34,10 @@ def test_register_user_and_login(index_steps,
     #. Switch language to English.
     #. Sign up with credentials.
     #. Confirm sign up.
+    #. Log out.
+    #. Go to login page.
+    #. Log in with registered credentials.
+    #. Log out.
 
     **Teardown:**
 
@@ -53,7 +57,24 @@ def test_register_postpone(index_steps,
                            new_account_steps,
                            signin_steps,
                            user_account_steps):
-    """
+    """**Scenario:** User confirms account with next login.
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Sign up with credentials.
+    #. Reset login session.
+    #. Login with registered credentials.
+    #. Confirm created account.
+    #. Log out.
+
+    **Teardown:**
+
+    #. Close browser.
     """
     index_steps.switch_language("en")
     user_data = index_steps.signup()

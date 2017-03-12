@@ -21,7 +21,7 @@ from ui_tests import config
 
 
 def test_send_recovery_email(index_steps, signin_steps, recovery_steps):
-    """**Scenario:** User logs in successfully
+    """**Scenario:** Email to recovery password is sent.
 
     **Setup:**
 
@@ -47,9 +47,24 @@ def test_send_recovery_email(index_steps, signin_steps, recovery_steps):
 def test_notify_recovery_email_invalid(index_steps,
                                        signin_steps,
                                        recovery_steps):
-    """**Scenario:**
+    """**Scenario:** Error message about nonexistent recovery email is shown.
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Click link "Login" to go to login page.
+    #. Click link "forgot?" to go to recovery password page.
+    #. Submit nonexistent email and check that error message is shown.
+
+    **Teardown:**
+
+    #. Close browser.
     """
     index_steps.switch_language("en")
     index_steps.goto_login()
     signin_steps.goto_recovery()
-    recovery_steps.check_recovery_email_invalid_notification()
+    recovery_steps.check_recovery_email_nonexistent_notification()

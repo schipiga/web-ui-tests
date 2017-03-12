@@ -55,7 +55,7 @@ class RecoverySteps(BaseSteps):
                         timeout=config.PAGE_TIMEOUT),
                 "email with instruction is sent")
 
-    def check_recovery_email_invalid_notification(self):
+    def check_recovery_email_nonexistent_notification(self):
         """Step to check that notification about invalid email is present.
 
         Raises:
