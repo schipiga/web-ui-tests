@@ -87,7 +87,7 @@ def test_login_reset_after_browser_restart(index_steps,
 
     #. Switch language to English.
     #. Click link "Login" to go to login page.
-    #. Log in with credentials and set a flag to remember session.
+    #. Log in with credentials.
     #. Restart browser and check that user session is reset.
 
     **Teardown:**
@@ -104,6 +104,23 @@ def test_login_reset_after_browser_restart(index_steps,
 def test_login_saved_after_browser_restart(index_steps,
                                            signin_steps,
                                            user_account_steps):
+    """**Scenario:** User session is saved after browser restart.
+
+    **Setup:**
+
+    #. Launch browser and open application URL.
+
+    **Steps:**
+
+    #. Switch language to English.
+    #. Click link "Login" to go to login page.
+    #. Log in with credentials and set a flag to remember session.
+    #. Restart browser and check that user session is saved.
+
+    **Teardown:**
+
+    #. Close browser.
+    """
     index_steps.switch_language("en")
     index_steps.goto_login()
     signin_steps.login(config.USER_EMAIL, config.USER_PASSWD,
