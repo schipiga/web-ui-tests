@@ -57,7 +57,7 @@ def test_register_postpone(index_steps,
                            new_account_steps,
                            signin_steps,
                            user_account_steps):
-    """**Scenario:** User confirms account with next login.
+    """**Scenario:** User confirms account in next login.
 
     **Setup:**
 

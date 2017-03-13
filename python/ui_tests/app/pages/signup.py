@@ -1,7 +1,7 @@
 """
-------------
-Sign up page
-------------
+-----------
+Signup page
+-----------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,6 @@ __all__ = [
 
 
 class PageSignup(PageBase):
-    """Sign up page."""
+    """Signup page."""
 
     url = r'/.+/register'

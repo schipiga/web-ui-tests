@@ -37,11 +37,11 @@ class IndexSteps(BaseSteps):
         """Step to switch language.
 
         Args:
-            lang (str): switch language code
+            lang (str): switched language code
             check (bool, optional): flag whether to check step or no
 
         Raises:
-            AssertionError: if page will not switched to expected language
+            AssertionError: if page will not be switched to expected language
         """
         langs = {"en": "English",
                  "ru": u"Русский"}

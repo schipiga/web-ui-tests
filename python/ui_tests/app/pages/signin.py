@@ -1,7 +1,7 @@
 """
-------------
-Sign in page
-------------
+-----------
+Signin page
+-----------
 """
 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,6 +39,6 @@ class FormLogin(ui.Form):
 @ui.register_ui(
     form_login=FormLogin(By.ID, "login_form"))
 class PageSignin(PageBase):
-    """Sign in page."""
+    """Signin page."""
 
     url = '/auth/login'

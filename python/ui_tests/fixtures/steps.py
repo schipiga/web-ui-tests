@@ -63,5 +63,5 @@ def user_account_steps(app):
 
 @pytest.fixture
 def welcome_back_steps(app):
-    """Function fixture to get user account steps."""
+    """Function fixture to get welcome back steps."""
     return steps.WelcomeBackSteps(app)

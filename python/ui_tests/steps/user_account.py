@@ -61,7 +61,7 @@ class UserAccountSteps(BaseSteps):
         self.app.open(url)
 
     def check_session_reset_after_browser_restart(self):
-        """Step to check that session reset after browser_restart.
+        """Step to check that session is reset after browser restart.
 
         Raises:
             AssertionError: if sign in page isn't opened
@@ -74,7 +74,7 @@ class UserAccountSteps(BaseSteps):
             "sign in page is opened")
 
     def check_session_saved_after_browser_restart(self):
-        """Step to check that session saved after browser_restart.
+        """Step to check that session is saved after browser restart.
 
         Raises:
             AssertionError: if user account page isn't opened

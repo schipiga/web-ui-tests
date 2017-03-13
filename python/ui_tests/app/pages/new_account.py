@@ -34,12 +34,12 @@ __all__ = [
     combobox_company_industry=_ui.ComboBox(By.NAME, 'company_industry'),
     combobox_signup_source=_ui.ComboBox(By.NAME, 'signup_source'))
 class FormConfirm(ui.Form):
-    """Confirm sign up form."""
+    """Confirm signup form."""
 
 
 @ui.register_ui(
     form_confirm=FormConfirm(By.ID, 'short_signup_step2'))
 class PageNewAccount(PageBase):
-    """Page opens write after new account creation."""
+    """Page opens right after new account creation."""
 
     url = '/auth/create_new_account'

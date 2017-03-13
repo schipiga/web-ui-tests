@@ -28,7 +28,7 @@ from .base import BaseSteps
 
 
 class SigninSteps(BaseSteps):
-    """Sign in page steps."""
+    """Signin page steps."""
 
     @step.step("Log in with email {1} and password {2}")
     def login(self, email, password, remember=False, name=None, check=True):
@@ -78,7 +78,7 @@ class SigninSteps(BaseSteps):
                        "recovery password page is opened")
 
     def check_user_need_confirm_signup_after_login(self, email, password):
-        """Step to check that user need confirm signup after login.
+        """Step to check that user needs to confirm signup after login.
 
         Args:
             email (str): user email

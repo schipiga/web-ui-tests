@@ -37,7 +37,7 @@ class NewAccountSteps(BaseSteps):
 
     @step.step("Confirm new user sign up")
     def confirm_signup(self, company_name=None, check=True):
-        """Step to confirm sign up.
+        """Step to confirm signup.
 
         Args:
             company_name (str): name of user's company

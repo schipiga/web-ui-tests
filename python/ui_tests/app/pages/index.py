@@ -32,7 +32,7 @@ __all__ = [
     field_email=ui.TextField(By.NAME, 'email'),
     field_password=ui.TextField(By.NAME, 'password'))
 class FormSignup(ui.Form):
-    """Sign up form."""
+    """Signup form."""
 
 
 @ui.register_ui(

@@ -1,6 +1,6 @@
 """
 --------------
-Steps fixtures
+Video fixtures
 --------------
 """
 

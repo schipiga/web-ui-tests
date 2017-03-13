@@ -56,7 +56,7 @@ class RecoverySteps(BaseSteps):
                 "email with instruction is sent")
 
     def check_recovery_email_nonexistent_notification(self):
-        """Step to check that notification about invalid email is present.
+        """Step to check that notification about nonexistent email is present.
 
         Raises:
             AssertionError: if error message is absent
@@ -66,4 +66,4 @@ class RecoverySteps(BaseSteps):
             lambda: self.app.page_recovery.block_recovery.label_error.value,
             returns(contains_string('Incorrect email'),
                     timeout=config.PAGE_TIMEOUT),
-            "error message about invalid email is present")
+            "error message about nonexistent email is present")
