@@ -28,10 +28,17 @@ __all__ = [
 
 
 @ui.register_ui(
+    button_close=ui.Button(By.CLASS_NAME, 'inmplayer-popover-close-button'))
+class WelcomeModal(ui.Block):
+    """Welcome modal block."""
+
+
+@ui.register_ui(
     label_user_name=ui.UI(By.CSS_SELECTOR, ".userInfo > .name"),
     link_account_dropdown_menu=ui.Link(By.CSS_SELECTOR,
                                        'a[data-dropmenu="profile"]'),
-    link_logout=ui.Link(By.CSS_SELECTOR, "a[href*='/auth/logout']"))
+    link_logout=ui.Link(By.CSS_SELECTOR, "a[href*='/auth/logout']"),
+    block_welcome_modal=WelcomeModal(By.CLASS_NAME, "fczbkk-popover-content"))
 class PageUserAccount(PageBase):
     """User account page."""
 

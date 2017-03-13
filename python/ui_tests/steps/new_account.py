@@ -62,3 +62,8 @@ class NewAccountSteps(BaseSteps):
                        returns(same_instance(self.app.page_user_account),
                                timeout=config.PAGE_TIMEOUT),
                        "user account page is opened")
+
+            with self.app.page_user_account.block_welcome_modal as welcome:
+                welcome.wait_for_presence()
+                welcome.button_close.click()
+                welcome.wait_for_absence()
