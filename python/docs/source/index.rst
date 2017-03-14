@@ -19,6 +19,7 @@ It uses next toolkits:
 - ``xvfb`` (https://en.wikipedia.org/wiki/Xvfb) - virtual display to launch tests in headless mode (disabled by default)
 - ``libav`` (https://libav.org) - audio and video processing toolkit to capture video of display (disabled by default)
 - ``pytest-xdist`` (https://pypi.python.org/pypi/pytest-xdist) - plugin to launch tests in parallel mode (disabled by default) 
+- ``allure`` (http://allure.qatools.ru) - the excellent test report generator, developed by Yandex
 
 It also requires next installed software:
 
